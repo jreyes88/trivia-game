@@ -1,0 +1,11 @@
+.startButton {
+	background-color: red;
+}
+
+.correctButton {
+	background-color: green;
+}
+
+.incorrectButton {
+	background-color: red;
+}
