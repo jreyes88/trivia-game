@@ -39,8 +39,39 @@ $(document).ready(function() {
 			var incorrectChoice3 = triviaQuestions[0].incorrectAnswer3;
 			$(".answerPane").append("<div class='incorrectButton'><p>" + incorrectChoice3 + "</p></div>");
 		});
-	};
 
+		// Runs a function to randomize the code
+		randomize()
+
+		// Lines 46 to 71: Writing out the function to randomize code. Example of this is http://jsfiddle.net/bv3MN/1/
+
+		function randomize() {
+
+			// Removes child divs (those with the classes of either correctAnswer or incorrectAnswer that are within the answerPane div)
+			$(".answerPane").each(function(){
+            	var divs = $(this).find('div');
+            	console.log(divs);
+            	for(var i = 0; i < divs.length; i++) {
+            		$(divs[i]).remove();
+            	};
+
+            	// code to randomize order of the child divs
+            	var i = divs.length;
+            	if (i == 0) return false;
+            	while ( --i ) {
+            		var j = Math.floor(Math.random() * (i + 1));
+            		var tempi = divs[i];
+            		var tempj = divs[j];
+            		divs[i] = tempj;
+            		divs[j] = tempi;
+            	}
+
+            	// now that child divs have been randomized, re-append them to this 
+            	for (var i = 0; i < divs.length; i++)
+            		$(divs[i]).appendTo(this);
+            });
+    	};
+    };
 })
 
 // Questions
@@ -48,7 +79,7 @@ var triviaQuestions = [
 	{
 		question: "Question 1",
 		img: "#",
-		correctAnswer: "Correct Answer",
+		correctAnswer: "Correct Answer</li>",
 		incorrectAnswer1: "Incorrect Answer 1",
 		incorrectAnswer2: "Incorrect Answer 2",
 		incorrectAnswer3: "Incorrect Answer 3",
