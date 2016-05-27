@@ -1,40 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Trivia Game</title>
-	<!-- Bootstrap -->
+	<title>Trivia</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-	<!-- Custom Styles -->
 	<link rel="stylesheet" href="assets/css/styles.css">
 
-	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
 </head>
 <body>
+    <div class="quizContainer">
+         <h1>Trivia</h1>
 
-<!-- Jumbotron. The name of the game goes here -->
-<div class="jumbotron">
-	<h1>Trivia Game</h1>
-</div>
+        <div class="question"></div>
+        <ul class="choiceList"></ul>
+        <div class="quizMessage"></div>
+        <div class="result"></div>
+        <div class="startButton"></div>
+        <br>
+    </div>
 
-
-<!-- Pane for Start Button, Questions, and Results Screen -->
-<div class="container"> <!-- Start Button and Questions -->
-	<div class="row">
-		<div class="col-md-12 questionPane"></div>
-	</div>
-</div>
-
-<!-- Pane for multiple choice answer -->
-<div class="container">
-	<div class="row">
-		<div class="col-md-12 answerPane">
-		</div>
-	</div>
-</div>
-
-<!-- Custom JavaScript -->
 <script src="assets/js/js.js"></script>
 </body>
 </html>

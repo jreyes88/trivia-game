@@ -1,103 +1,181 @@
+// Begin with an object for the questions. You'll call on these by .question or .choices or the like. .correctAnswer number equals the correct choice within the .choices array, and corresponds to the proper choice within the radio buttons on line (86). The .correctChoice string is what will display in the event that the wrong answer is chosen, or the timer runs out.
+
+var questions = [{
+    question: "Question 1?",
+    choices: ["Incorrect Answer", "Correct Answer", "Incorrect Answer", "Incorrect Answer"],
+    correctAnswer: 1,
+    correctChoice: "Correct Answer"
+}, {
+    question: "What is 27*14?",
+    choices: ["Incorrect Answer", "Incorrect Answer", "Correct Answer", "Incorrect Answer"],
+    correctAnswer: 2,
+    correctChoice: "Correct Answer"
+}, {
+    question: "What is the busiest train station in the world?",
+    choices: ["Incorrect Answer", "Correct Answer", "Incorrect Answer", "Incorrect Answer"],
+    correctAnswer: 1
+}, {
+    question: "What is the longest river?",
+    choices: ["Correct Answer", "Incorrect Answer", "Incorrect Answer", "Incorrect Answer"],
+    correctAnswer: 0,
+    correctChoice: "Correct Answer"
+}, {
+    question: "What is the busiest tube station in the London?",
+    choices: ["Correct Answer", "Incorrect Answer", "Incorrect Answer", "Incorrect Answer"],
+    correctAnswer: 0,
+    correctChoice: "Correct Answer"
+}];
+
+// Empty gloval variables that the various functions need to manipulate to advance the game, determine the final score, and determine whether the game is over.
+var currentQuestion = 0;
+var correctAnswers = 0;
+var quizOver = false;
+
 // All Game Functions
-$(document).ready(function() {
+$(document).ready(function () {
 
-	// Loads Start Button
-	initiateGame();
-	beginGame();
-	loadAnswers();
+    // Hides the quizMessage div
+    $(this).find(".quizMessage").hide();
 
-	// First Screen With Button
-	function initiateGame() {
-		$(".questionPane").html("<button id='buttonStart'>Start</button>");
-	};
+    // Displays start button
+    $(".startButton").html("Start!");
 
-	// Loads Question
-	function beginGame() {
-		$("#buttonStart").click(function(event) {
-			var firstQuestion = triviaQuestions[0].question;
-			$(".questionPane").html(firstQuestion);
-		});
-	};
+    // When the start button is clicked, the text changes to say "Submit Answer", and the class changes from "startButton" to "nextButton"
+    $(".startButton").on("click", function() {
+        displayCurrentQuestion();
+        $(".startButton").addClass("nextButton").removeClass("startButton").html("Submit Answer");
 
-	// Loads Answers
-	function loadAnswers() {
-		
-		// Loads Correct Answer
-		$("#buttonStart").click(function(event) {
-			var correctChoice = triviaQuestions[0].correctAnswer;
-			$(".answerPane").append("<div class='correctButton'><p>" + correctChoice + "</p></div>");
-		});
+        // the Game logic, which starts at line (74) is then invoked with the following function
+        game();
+        
+    });
+});
 
-		// Loads Incorrect Answers
-		$("#buttonStart").click(function(event) {
-			var incorrectChoice1 = triviaQuestions[0].incorrectAnswer1;
-			$(".answerPane").append("<div class='incorrectButton'><p>" + incorrectChoice1 + "</p></div>");
+// This function displays the current question and the choices
+function displayCurrentQuestion() {
+    var question = questions[currentQuestion].question;
+    var questionClass = $(document).find(".quizContainer > .question");
+    var choiceList = $(document).find(".quizContainer > .choiceList");
+    var numChoices = questions[currentQuestion].choices.length;
 
-			var incorrectChoice2 = triviaQuestions[0].incorrectAnswer2;
-			$(".answerPane").append("<div class='incorrectButton'><p>" + incorrectChoice2 + "</p></div>");
+    // Set the questionClass text to the current question
+    $(questionClass).text(question);
 
-			var incorrectChoice3 = triviaQuestions[0].incorrectAnswer3;
-			$(".answerPane").append("<div class='incorrectButton'><p>" + incorrectChoice3 + "</p></div>");
-		});
+    // Declares a local empty variable named "choice"
+    var choice;
 
-		// Runs a function to randomize the code
-		randomize()
+    // for-loop that appends the various choices arrays in the question object into the variable named choice. each appendage is a list item with a radio button
+    for (i = 0; i < numChoices; i++) {
+        choice = questions[currentQuestion].choices[i];
+        $('<li><input type="radio" value=' + i + ' name="dynradio" />' + choice + '</li>').appendTo(choiceList);
+    }
+}
 
-		// Lines 46 to 71: Writing out the function to randomize code. Example of this is http://jsfiddle.net/bv3MN/1/
+// This function contains all of the game logic
+function game() {
+    
+    // hides the Quiz Message
+    $(this).find(".quizMessage").hide();
 
-		function randomize() {
+    // runs game logic when you click on the "Check Answer" button
+    $(".nextButton").on("click", function () {
 
-			// Removes child divs (those with the classes of either correctAnswer or incorrectAnswer that are within the answerPane div)
-			$(".answerPane").each(function(){
-            	var divs = $(this).find('div');
-            	console.log(divs);
-            	for(var i = 0; i < divs.length; i++) {
-            		$(divs[i]).remove();
-            	};
+    	// defines a local variable named "value" that consists of the value of the radio button that is selected. This definition occurs when the "Check Answer" button is clicked
+        value = $("input[type='radio']:checked").val();
 
-            	// code to randomize order of the child divs
-            	var i = divs.length;
-            	if (i == 0) return false;
-            	while ( --i ) {
-            		var j = Math.floor(Math.random() * (i + 1));
-            		var tempi = divs[i];
-            		var tempj = divs[j];
-            		divs[i] = tempj;
-            		divs[j] = tempi;
-            	}
+        // if the "Check Answer" button is clicked but no radio button is selected, then the Quiz Message appears instructing the player to select an answer
+        if (value == undefined) {
+            $(document).find(".quizMessage").text("Please select an answer");
+            $(document).find(".quizMessage").show();
 
-            	// now that child divs have been randomized, re-append them to this 
-            	for (var i = 0; i < divs.length; i++)
-            		$(divs[i]).appendTo(this);
-            });
-    	};
-    };
-})
+            $(".choiceList").find("li").remove();
+            
+            // reloads the current question and its answers. Without this line, the question and answers would be cleared out
+            displayCurrentQuestion();
 
-// Questions
-var triviaQuestions = [
-	{
-		question: "Question 1",
-		img: "#",
-		correctAnswer: "Correct Answer</li>",
-		incorrectAnswer1: "Incorrect Answer 1",
-		incorrectAnswer2: "Incorrect Answer 2",
-		incorrectAnswer3: "Incorrect Answer 3",
-	},
-	{
-		question: "Question 2",
-		img: "#",
-		correctAnswer: "Correct Answer",
-		incorrectAnswer1: "Incorrect Answer 1",
-		incorrectAnswer2: "Incorrect Answer 2",
-		incorrectAnswer3: "Incorrect Answer 3",
-	},
-	{
-		question: "Question 3",
-		img: "#",
-		correctAnswer: "Correct Answer",
-		incorrectAnswer1: "Incorrect Answer 1",
-		incorrectAnswer2: "Incorrect Answer 2",
-		incorrectAnswer3: "Incorrect Answer 3",
-	}
-]
+        // the following sections cover what to do when a radio button IS selected and the "Check Answer" button is clicked
+        } else {
+
+        	// this section covers the condition in which the correct radio button is clicked
+            if (value == questions[currentQuestion].correctAnswer) {
+
+                // Moves onto the next question
+                correctAnswers++;
+
+                currentQuestion++;
+                // Clears list items
+                $(".choiceList").find("li").remove();
+
+                // Loads new question and answers
+                displayCurrentQuestion();
+
+                // Displays "Correct!" in the Quiz Message window
+                $(".quizMessage").text("Correct!");
+                $(document).find(".quizMessage").show();
+
+            } else if (value !== questions[currentQuestion].correctAnswer) {
+                currentQuestion++;
+                $(document).find(".quizMessage").text("Incorrect! The correct answer is " + questions[currentQuestion].correctChoice);
+                $(document).find(".quizMessage").show();
+                $(".choiceList").find("li").remove();
+                displayCurrentQuestion();
+            };
+        }
+    });
+
+
+    // On clicking next, display the next questionx
+
+        // if (quizOver !== false) {
+
+        //      else {
+
+        //         if (value == questions[currentQuestion].correctAnswer) {
+        //             correctAnswers++;
+        //             $(document).find(".quizMessage").text("Correct!");
+        //             $(document).find(".quizMessage").show();
+        //         }
+
+        //         else if (value !== questions[currentQuestion].correctAnswer) {
+        //             $(document).find(".quizMessage").text("Incorrect! The correct answer is " + questions[currentQuestion].correctChoice);
+        //             $(document).find(".quizMessage").show();
+        //         }
+
+        //         currentQuestion++; // Since we have already displayed the first question on DOM ready
+        //         if (currentQuestion < questions.length) {
+        //             displayCurrentQuestion();
+        //         } else {
+        //             displayScore();
+        //             //                    $(document).find(".nextButton").toggle();
+        //             //                    $(document).find(".playAgainButton").toggle();
+        //             // Change the text in the next button to ask if user wants to play again
+        //             $(document).find(".nextButton").text("Play Again?");
+        //             quizOver = true;
+        //         }
+        //     }
+        // } 
+        // else { // quiz is over and clicked the next button (which now displays 'Play Again?'
+        //     quizOver = false;
+        //     $(document).find(".nextButton").text("Next Question");
+        //     resetQuiz();
+        //     displayCurrentQuestion();
+        //     hideScore();
+        // }
+
+    // });
+};
+
+function resetQuiz() {
+    currentQuestion = 0;
+    correctAnswers = 0;
+    hideScore();
+}
+
+function displayScore() {
+    $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
+    $(document).find(".quizContainer > .result").show();
+}
+
+function hideScore() {
+    $(document).find(".result").hide();
+}

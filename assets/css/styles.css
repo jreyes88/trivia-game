@@ -1,11 +1,22 @@
 .startButton {
-	background-color: red;
+	background-color: #000;
+	color: #fff;
+	width: 50px;
+	height: 60px;
+	text-align: center;
 }
 
-.correctButton {
-	background-color: green;
+.nextButton {
+	background-color: #000;
+	color: #fff;
+	width: 90px;
+	height: 60px;
+	text-align: center;
 }
 
-.incorrectButton {
-	background-color: red;
+.quizMessage {
+	width: 200px;
+	height: 100px;	
+	background-color: #e6e6e6;
+
 }
