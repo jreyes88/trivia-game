@@ -29,7 +29,6 @@ var questions = [{
 // Empty gloval variables that the various functions need to manipulate to advance the game, determine the final score, and determine whether the game is over.
 var currentQuestion = 0;
 var correctAnswers = 0;
-var quizOver = false;
 
 // All Game Functions
 $(document).ready(function () {
@@ -66,7 +65,6 @@ function displayCurrentQuestion() {
         choice = questions[currentQuestion].choices[i];
         $('<li><input type="radio" value=' + i + ' name="dynradio" />' + choice + '</li>').appendTo(choiceList);
     };
-    runTimer();
 };
 
 // This function contains all of the game logic
@@ -82,10 +80,8 @@ function game() {
     $(".nextButton").on("click", function () {
 
     	$(document).find(".quizContainer > .quizMessage").hide();
-    	runTimer();
 
     	value = $("input[type='radio']:checked").val();
-    	console.log(value);
 
         // if the "Check Answer" button is clicked but no radio button is selected, then the Quiz Message appears instructing the player to select an answer
         if (value == undefined) {
@@ -99,11 +95,10 @@ function game() {
 
         	// this section covers the condition in which the correct radio button is clicked
             if (value == questions[currentQuestion].correctAnswer) {
-
+                correctAnswers++;
             	advanceQuestion();
 
             } else if (value !== questions[currentQuestion].correctAnswer) {
-
                 advanceQuestion();
             };
         };
@@ -119,23 +114,39 @@ function timesUp() {
 
 // Moves onto the next question. Resets the timer to 11
 function advanceQuestion() {
-	correctAnswers++;
-	currentQuestion++;
-	$(".choiceList").find("li").remove();
-	displayCurrentQuestion();
-	number = 11;
-	hiddenNumber = 5;
-};
-
-function resetQuiz() {
-    currentQuestion = 0;
-    correctAnswers = 0;
-    hideScore();
+	if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        console.log(currentQuestion);
+        $(".choiceList").find("li").remove();
+        displayCurrentQuestion();
+        number = 11;
+        hiddenNumber = 5;
+        runTimer();
+    } else {
+        $(".choiceList").find("li").remove();
+        $(".question").text("Game Over!");
+        stopTimer();
+        $(".timer").addClass("doNotDisplay");
+        displayScore();
+    };
 };
 
 function displayScore() {
     $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
     $(document).find(".quizContainer > .result").show();
+    $(".nextButton").text("Try Again?").addClass("resetButton").removeClass("nextButton");
+    tryAgainReset();
+};
+
+function tryAgainReset() {
+    $(".resetButton").on("click", function() {
+        hideScore();
+        $(".choiceList").find("li").remove();
+        currentQuestion = 0;
+        correctAnswers = 0;
+        game();
+        console.log(currentQuestion);
+    });
 };
 
 function hideScore() {
