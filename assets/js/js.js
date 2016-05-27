@@ -6,21 +6,21 @@ var questions = [{
     correctAnswer: 1,
     correctChoice: "Correct Answer"
 }, {
-    question: "What is 27*14?",
+    question: "Question 2?",
     choices: ["Incorrect Answer", "Incorrect Answer", "Correct Answer", "Incorrect Answer"],
     correctAnswer: 2,
     correctChoice: "Correct Answer"
 }, {
-    question: "What is the busiest train station in the world?",
+    question: "Question 3?",
     choices: ["Incorrect Answer", "Correct Answer", "Incorrect Answer", "Incorrect Answer"],
     correctAnswer: 1
 }, {
-    question: "What is the longest river?",
+    question: "Question 4?",
     choices: ["Correct Answer", "Incorrect Answer", "Incorrect Answer", "Incorrect Answer"],
     correctAnswer: 0,
     correctChoice: "Correct Answer"
 }, {
-    question: "What is the busiest tube station in the London?",
+    question: "Question 5?",
     choices: ["Correct Answer", "Incorrect Answer", "Incorrect Answer", "Incorrect Answer"],
     correctAnswer: 0,
     correctChoice: "Correct Answer"
@@ -44,12 +44,23 @@ $(document).ready(function () {
     $(".startButton").on("click", function() {
         displayCurrentQuestion();
         $(".startButton").addClass("nextButton").removeClass("startButton").html("Submit Answer");
+        gameLength();
 
         // the Game logic, which starts at line (74) is then invoked with the following function
-        game();
-        
     });
 });
+
+function gameLength() {
+    if (currentQuestion < questions.length) {
+        game();
+        } else {
+        displayScore();
+        $(document).find(".nextButton").toggle();
+        $(document).find(".playAgainButton").toggle();
+        $(document).find(".nextButton").text("Play Again?");
+        quizOver = true;
+    };
+};
 
 // This function displays the current question and the choices
 function displayCurrentQuestion() {
@@ -101,24 +112,19 @@ function game() {
 
                 // Moves onto the next question
                 correctAnswers++;
-
                 currentQuestion++;
-                // Clears list items
-                $(".choiceList").find("li").remove();
-
-                // Loads new question and answers
-                displayCurrentQuestion();
 
                 // Displays "Correct!" in the Quiz Message window
                 $(".quizMessage").text("Correct!");
                 $(document).find(".quizMessage").show();
+                $(".choiceList").find("li").remove();
 
             } else if (value !== questions[currentQuestion].correctAnswer) {
                 currentQuestion++;
+
                 $(document).find(".quizMessage").text("Incorrect! The correct answer is " + questions[currentQuestion].correctChoice);
                 $(document).find(".quizMessage").show();
                 $(".choiceList").find("li").remove();
-                displayCurrentQuestion();
             };
         }
     });
@@ -130,27 +136,13 @@ function game() {
 
         //      else {
 
-        //         if (value == questions[currentQuestion].correctAnswer) {
-        //             correctAnswers++;
-        //             $(document).find(".quizMessage").text("Correct!");
-        //             $(document).find(".quizMessage").show();
-        //         }
-
-        //         else if (value !== questions[currentQuestion].correctAnswer) {
-        //             $(document).find(".quizMessage").text("Incorrect! The correct answer is " + questions[currentQuestion].correctChoice);
-        //             $(document).find(".quizMessage").show();
-        //         }
 
         //         currentQuestion++; // Since we have already displayed the first question on DOM ready
-        //         if (currentQuestion < questions.length) {
-        //             displayCurrentQuestion();
-        //         } else {
-        //             displayScore();
-        //             //                    $(document).find(".nextButton").toggle();
-        //             //                    $(document).find(".playAgainButton").toggle();
+		
+                                       
         //             // Change the text in the next button to ask if user wants to play again
-        //             $(document).find(".nextButton").text("Play Again?");
-        //             quizOver = true;
+        //             
+        //             
         //         }
         //     }
         // } 
