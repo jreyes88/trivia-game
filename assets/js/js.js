@@ -35,32 +35,18 @@ var quizOver = false;
 $(document).ready(function () {
 
     // Hides the quizMessage div
-    $(this).find(".quizMessage").hide();
+    // $(".quizMessage").hide();
 
     // Displays start button
     $(".startButton").html("Start!");
 
     // When the start button is clicked, the text changes to say "Submit Answer", and the class changes from "startButton" to "nextButton"
     $(".startButton").on("click", function() {
-        displayCurrentQuestion();
-        $(".startButton").addClass("nextButton").removeClass("startButton").html("Submit Answer");
-        gameLength();
-
-        // the Game logic, which starts at line (74) is then invoked with the following function
+        $(".startButton").addClass("nextButton").removeClass("startButton");
+        $(".nextButton").html("Check Answer");
+        game();
     });
 });
-
-function gameLength() {
-    if (currentQuestion < questions.length) {
-        game();
-        } else {
-        displayScore();
-        $(document).find(".nextButton").toggle();
-        $(document).find(".playAgainButton").toggle();
-        $(document).find(".nextButton").text("Play Again?");
-        quizOver = true;
-    };
-};
 
 // This function displays the current question and the choices
 function displayCurrentQuestion() {
@@ -79,29 +65,32 @@ function displayCurrentQuestion() {
     for (i = 0; i < numChoices; i++) {
         choice = questions[currentQuestion].choices[i];
         $('<li><input type="radio" value=' + i + ' name="dynradio" />' + choice + '</li>').appendTo(choiceList);
-    }
-}
+    };
+    runTimer();
+};
 
 // This function contains all of the game logic
 function game() {
     
+    displayCurrentQuestion();
+
     // hides the Quiz Message
     $(this).find(".quizMessage").hide();
 
     // runs game logic when you click on the "Check Answer" button
     $(".nextButton").on("click", function () {
 
-    	// defines a local variable named "value" that consists of the value of the radio button that is selected. This definition occurs when the "Check Answer" button is clicked
-        value = $("input[type='radio']:checked").val();
+    	$(document).find(".quizContainer > .quizMessage").hide();
+    	runTimer();
+
+    	value = $("input[type='radio']:checked").val();
+    	console.log(value);
 
         // if the "Check Answer" button is clicked but no radio button is selected, then the Quiz Message appears instructing the player to select an answer
         if (value == undefined) {
             $(document).find(".quizMessage").text("Please select an answer");
-            $(document).find(".quizMessage").show();
-
+            $(document).find(".quizMessage").show(); // why can't i make this disappear?
             $(".choiceList").find("li").remove();
-            
-            // reloads the current question and its answers. Without this line, the question and answers would be cleared out
             displayCurrentQuestion();
 
         // the following sections cover what to do when a radio button IS selected and the "Check Answer" button is clicked
@@ -110,64 +99,58 @@ function game() {
         	// this section covers the condition in which the correct radio button is clicked
             if (value == questions[currentQuestion].correctAnswer) {
 
-                // Moves onto the next question
-                correctAnswers++;
-                currentQuestion++;
-
-                // Displays "Correct!" in the Quiz Message window
-                $(".quizMessage").text("Correct!");
-                $(document).find(".quizMessage").show();
-                $(".choiceList").find("li").remove();
+            	advanceQuestion();
 
             } else if (value !== questions[currentQuestion].correctAnswer) {
-                currentQuestion++;
 
-                $(document).find(".quizMessage").text("Incorrect! The correct answer is " + questions[currentQuestion].correctChoice);
-                $(document).find(".quizMessage").show();
-                $(".choiceList").find("li").remove();
+                advanceQuestion();
             };
-        }
+        };
     });
+};
 
-
-    // On clicking next, display the next questionx
-
-        // if (quizOver !== false) {
-
-        //      else {
-
-
-        //         currentQuestion++; // Since we have already displayed the first question on DOM ready
-		
-                                       
-        //             // Change the text in the next button to ask if user wants to play again
-        //             
-        //             
-        //         }
-        //     }
-        // } 
-        // else { // quiz is over and clicked the next button (which now displays 'Play Again?'
-        //     quizOver = false;
-        //     $(document).find(".nextButton").text("Next Question");
-        //     resetQuiz();
-        //     displayCurrentQuestion();
-        //     hideScore();
-        // }
-
-    // });
+function advanceQuestion() {
+	correctAnswers++;
+	currentQuestion++;
+	$(".choiceList").find("li").remove();
+	displayCurrentQuestion();
+	number = 11;
+	console.log(number);
 };
 
 function resetQuiz() {
     currentQuestion = 0;
     correctAnswers = 0;
     hideScore();
-}
+};
 
 function displayScore() {
     $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
     $(document).find(".quizContainer > .result").show();
-}
+};
 
 function hideScore() {
     $(document).find(".result").hide();
+};
+
+// timer stuff
+
+var number = 11;
+
+function runTimer(){
+	counter = setInterval(decrement, 1000);
+	$(".timer").removeClass("doNotDisplay");
+}
+    
+function decrement(){
+	number --;
+	$(".timer").html('<h2>' + number + '</h2>');
+	if (number === 0){
+    stopTimer();
+    // alert('Time Up!')
+	};
+};
+
+function stopTimer() {
+	clearInterval(counter);
 }

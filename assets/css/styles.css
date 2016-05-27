@@ -18,5 +18,8 @@
 	width: 200px;
 	height: 100px;	
 	background-color: #e6e6e6;
+}
 
+.doNotDisplay {
+	display: none;
 }
