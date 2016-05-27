@@ -77,45 +77,37 @@ function game() {
     // hides the Quiz Message
     $(this).find(".quizMessage").hide();
 
-    if (number === 0) {
-    	timesUp();
-    }
 
-    else
+    // runs game logic when you click on the "Check Answer" button
+    $(".nextButton").on("click", function () {
 
-    {
+    	$(document).find(".quizContainer > .quizMessage").hide();
+    	runTimer();
 
-	    // runs game logic when you click on the "Check Answer" button
-	    $(".nextButton").on("click", function () {
+    	value = $("input[type='radio']:checked").val();
+    	console.log(value);
 
-	    	$(document).find(".quizContainer > .quizMessage").hide();
-	    	runTimer();
+        // if the "Check Answer" button is clicked but no radio button is selected, then the Quiz Message appears instructing the player to select an answer
+        if (value == undefined) {
+            $(document).find(".quizMessage").text("Please select an answer");
+            $(document).find(".quizMessage").show(); // why can't i make this disappear?
+            $(".choiceList").find("li").remove();
+            displayCurrentQuestion();
 
-	    	value = $("input[type='radio']:checked").val();
-	    	console.log(value);
+        // the following sections cover what to do when a radio button IS selected and the "Check Answer" button is clicked
+        } else {
 
-	        // if the "Check Answer" button is clicked but no radio button is selected, then the Quiz Message appears instructing the player to select an answer
-	        if (value == undefined) {
-	            $(document).find(".quizMessage").text("Please select an answer");
-	            $(document).find(".quizMessage").show(); // why can't i make this disappear?
-	            $(".choiceList").find("li").remove();
-	            displayCurrentQuestion();
+        	// this section covers the condition in which the correct radio button is clicked
+            if (value == questions[currentQuestion].correctAnswer) {
 
-	        // the following sections cover what to do when a radio button IS selected and the "Check Answer" button is clicked
-	        } else {
+            	advanceQuestion();
 
-	        	// this section covers the condition in which the correct radio button is clicked
-	            if (value == questions[currentQuestion].correctAnswer) {
+            } else if (value !== questions[currentQuestion].correctAnswer) {
 
-	            	advanceQuestion();
-
-	            } else if (value !== questions[currentQuestion].correctAnswer) {
-
-	                advanceQuestion();
-	            };
-	        };
-	    });
-	};
+                advanceQuestion();
+            };
+        };
+    });
 };
 
 // Run this function if time runs out
