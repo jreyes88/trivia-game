@@ -77,45 +77,62 @@ function game() {
     // hides the Quiz Message
     $(this).find(".quizMessage").hide();
 
-    // runs game logic when you click on the "Check Answer" button
-    $(".nextButton").on("click", function () {
+    if (number === 0) {
+    	timesUp();
+    }
 
-    	$(document).find(".quizContainer > .quizMessage").hide();
-    	runTimer();
+    else
 
-    	value = $("input[type='radio']:checked").val();
-    	console.log(value);
+    {
 
-        // if the "Check Answer" button is clicked but no radio button is selected, then the Quiz Message appears instructing the player to select an answer
-        if (value == undefined) {
-            $(document).find(".quizMessage").text("Please select an answer");
-            $(document).find(".quizMessage").show(); // why can't i make this disappear?
-            $(".choiceList").find("li").remove();
-            displayCurrentQuestion();
+	    // runs game logic when you click on the "Check Answer" button
+	    $(".nextButton").on("click", function () {
 
-        // the following sections cover what to do when a radio button IS selected and the "Check Answer" button is clicked
-        } else {
+	    	$(document).find(".quizContainer > .quizMessage").hide();
+	    	runTimer();
 
-        	// this section covers the condition in which the correct radio button is clicked
-            if (value == questions[currentQuestion].correctAnswer) {
+	    	value = $("input[type='radio']:checked").val();
+	    	console.log(value);
 
-            	advanceQuestion();
+	        // if the "Check Answer" button is clicked but no radio button is selected, then the Quiz Message appears instructing the player to select an answer
+	        if (value == undefined) {
+	            $(document).find(".quizMessage").text("Please select an answer");
+	            $(document).find(".quizMessage").show(); // why can't i make this disappear?
+	            $(".choiceList").find("li").remove();
+	            displayCurrentQuestion();
 
-            } else if (value !== questions[currentQuestion].correctAnswer) {
+	        // the following sections cover what to do when a radio button IS selected and the "Check Answer" button is clicked
+	        } else {
 
-                advanceQuestion();
-            };
-        };
-    });
+	        	// this section covers the condition in which the correct radio button is clicked
+	            if (value == questions[currentQuestion].correctAnswer) {
+
+	            	advanceQuestion();
+
+	            } else if (value !== questions[currentQuestion].correctAnswer) {
+
+	                advanceQuestion();
+	            };
+	        };
+	    });
+	};
 };
 
+// Run this function if time runs out
+
+function timesUp() {
+	$(".question").text("Time is up! The correct answer is " + questions[currentQuestion].correctChoice);
+	runHiddenTimer();
+};
+
+// Moves onto the next question. Resets the timer to 11
 function advanceQuestion() {
 	correctAnswers++;
 	currentQuestion++;
 	$(".choiceList").find("li").remove();
 	displayCurrentQuestion();
 	number = 11;
-	console.log(number);
+	hiddenNumber = 5;
 };
 
 function resetQuiz() {
@@ -133,7 +150,7 @@ function hideScore() {
     $(document).find(".result").hide();
 };
 
-// timer stuff
+// game timer stuff
 
 var number = 11;
 
@@ -147,6 +164,7 @@ function decrement(){
 	$(".timer").html('<h2>' + number + '</h2>');
 	if (number === 0){
     stopTimer();
+    timesUp();
     // alert('Time Up!')
 	};
 };
@@ -154,3 +172,24 @@ function decrement(){
 function stopTimer() {
 	clearInterval(counter);
 }
+
+// Hidden Timer
+var hiddenNumber = 5;
+
+function runHiddenTimer(){
+	hiddenCounter = setInterval(hiddenDecrement, 1000);
+}
+    
+function hiddenDecrement(){
+	hiddenNumber --;
+	$(".hiddenTimer").html('<h2>' + hiddenNumber + '</h2>');
+	if (hiddenNumber === 0){
+    stopHiddenTimer();
+    advanceQuestion();
+    // alert('Time Up!')
+	};
+};
+
+function stopHiddenTimer() {
+	clearInterval(hiddenCounter);
+};
