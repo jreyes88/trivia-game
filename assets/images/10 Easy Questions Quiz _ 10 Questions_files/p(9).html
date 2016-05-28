@@ -1,0 +1,13 @@
+
+<!-- saved from url=(0283)http://a.tribalfusion.com/p.media?clickID=abmQou1Uj9XqaoRFrAUrB3WHU2nr3rRUMqXaYy5EFl4qvRnTBGXUJ8UtMQoP7LnVnwod7L3TUf5tEq5PBImUMIYsfXXVFYXGZbOpT743UM5WUnDUPMTRqMSSc3nPHZbyYtfnVA3y2sY40FZbJVmqw4AZb9R6nK3HYq1WQKmH2x36UT5srbVVQdVsbeSAFoYTYcxUTMXV&mediaDataID=5207316&mediaName=frame.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><script type="text/javascript" src="./hmac-sha1.js"></script>
+<script type="text/javascript" language="JavaScript">
+    //http://code.google.com/p/crypto-js/#SHA-1
+    //http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js
+    var payload = "nwid=10001105643&eid=18072662527180237382";
+    var esig = CryptoJS.HmacSHA1(payload, "ovAlY75Yr13q16VJ6JfHCxXfnXIH.gK_OwoW.ZIKK6g-");
+    var pixelUrl = "http://ads.yahoo.com/cms/v1?" + payload + "&sigv=1&esig=2~" + esig;
+    var finalPixelUrl = "http://ads.yahoo.com/pixel?id=2547130&t=2&piggyback=" + escape(pixelUrl);
+    TFPix611556174 = new Image();
+    TFPix611556174.src = finalPixelUrl;
+</script></head><body marginwidth="0" marginheight="0"></body></html>

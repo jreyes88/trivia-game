@@ -1,29 +1,30 @@
 // Begin with an object for the questions. You'll call on these by .question or .choices or the like. .correctAnswer number equals the correct choice within the .choices array, and corresponds to the proper choice within the radio buttons on line (86). The .correctChoice string is what will display in the event that the wrong answer is chosen, or the timer runs out.
 
 var questions = [{
-    question: "Question 1?",
-    choices: ["Incorrect Answer", "Correct Answer", "Incorrect Answer", "Incorrect Answer"],
-    correctAnswer: 1,
-    correctChoice: "Correct Answer"
+    question: "In which movie would you hear the song 'Hakuna Matata'?",
+    choices: ["Beauty and the Beast", "Hercules", "Cinderella", "Lion King"],
+    correctAnswer: 3,
+    correctChoice: "the Lion King"
 }, {
-    question: "Question 2?",
-    choices: ["Incorrect Answer", "Incorrect Answer", "Correct Answer", "Incorrect Answer"],
+    question: "In which television show would you find characters named Fred, Doris, and Arnold?",
+    choices: ["All in the Family", "Petticoat Junction", "Green Acres", "Beverly Hillbillies"],
     correctAnswer: 2,
-    correctChoice: "Correct Answer"
+    correctChoice: "Green Acres"
 }, {
-    question: "Question 3?",
-    choices: ["Incorrect Answer", "Correct Answer", "Incorrect Answer", "Incorrect Answer"],
-    correctAnswer: 1
+    question: " Which comic strip was written by Charles Schulz?",
+    choices: ["Garfield", "Peanuts", "Blondie", "Beetle Bailey"],
+    correctAnswer: 1,
+    correctChoice: "Peanuts"
 }, {
-    question: "Question 4?",
-    choices: ["Correct Answer", "Incorrect Answer", "Incorrect Answer", "Incorrect Answer"],
+    question: "Which type of scientist studiest and forecasts the weather?",
+    choices: ["Meteorologist", "Astrologist", "Astronomer", "Biologist"],
     correctAnswer: 0,
-    correctChoice: "Correct Answer"
+    correctChoice: "Meteorologist"
 }, {
-    question: "Question 5?",
-    choices: ["Correct Answer", "Incorrect Answer", "Incorrect Answer", "Incorrect Answer"],
-    correctAnswer: 0,
-    correctChoice: "Correct Answer"
+    question: "What color would you get if you mixed red and yellow together?",
+    choices: ["Pink", "Orange", "Gray", "Deeper shade of yellow (<-- prog rock band name. I call it.)"],
+    correctAnswer: 1,
+    correctChoice: "Orange"
 }];
 
 // Empty gloval variables that the various functions need to manipulate to advance the game, determine the final score, and determine whether the game is over.

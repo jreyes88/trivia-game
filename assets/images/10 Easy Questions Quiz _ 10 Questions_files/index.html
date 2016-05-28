@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)https://s0.2mdn.net/4979301/1461278460861/index.html -->
+<html class="" lang="en"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="ad.size" content="width=728,height=90">
+    <title>scottslawn_igoh_728x90</title>
+    <script type="text/javascript" src="./runtime.js"></script>
+    <script type="text/javascript">
+      var clickTag = "http://www.google.com";
+    </script>
+    <style>html, body {width: 100%; height: 100%}</style>
+  </head>
+  <body style="margin: 0; overflow: hidden"><script type="text/javascript">
+    
+      (function() {
+        var relegateNavigation = '';
+        var handleClickTagMessage = function(e) {
+          try {
+            var eventData = JSON.parse(e.data);
+          } catch (err) {
+            return;
+          }
+          if (eventData.isInitClickTag) {
+            if (eventData.clickTags) {
+              for (var i = 0; i < eventData.clickTags.length; i++) {
+                var clkTag = eventData.clickTags[i];
+                window[clkTag.name] = clkTag.url;
+              }
+            } else if (eventData.clickTag) {
+              window.clickTag = eventData.clickTag;
+            }
+            relegateNavigation = eventData.relegateNavigation;
+          }
+        };
+
+        if (open.call) {
+          window.open = function(open) {
+            return function(url, name, features) {
+              if (relegateNavigation === 'parent') {
+                var message = {'clickTag': url, 'isPostClickTag': true};
+                parent.postMessage(JSON.stringify(message), '*');
+              } else {
+                var args = [url, name];
+                if (features) {
+                  args.push(features);
+                }
+                open.apply(window, args);
+              }
+            };
+          }(window.open);
+        }
+
+        if (window.addEventListener) {
+          window.addEventListener(
+              'message', handleClickTagMessage, false);
+        } else {
+          window.attachEvent('onmessage', handleClickTagMessage);
+        }
+      })();
+    
+  </script>
+    <div id="container" style="width: 728px; height: 90px">
+    <div style="position: relative; width: 100%; height: 100%; overflow: hidden; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-user-select: none;"><canvas width="1456" height="180" style="width: 728px; height: 90px; position: absolute; left: 0px; top: 0px;"></canvas></div></div>
+    <script type="text/javascript" src="./animation.js"></script>
+    <script>
+      var addEvent,removeEvent;window.addEventListener?(addEvent=function(a,c,b){null!==a&&a.addEventListener(c,b,!1)},removeEvent=function(a,c,b){a.removeEventListener(c,b,!1)}):document.attachEvent&&(addEvent=function(a,c,b){var d=c+b;a["e"+d]=b;a[d]=function(){a["e"+d](window.event)};a.attachEvent("on"+c,a[d])},removeEvent=function(a,c,b){b=c+b;a.detachEvent("on"+c,a[b]);a[b]=null;a["e"+b]=null});
+
+      var el = document.getElementById( 'container' );
+          
+      var stage = new swiffy.Stage(document.getElementById('container'),
+        animation, {  });
+      
+        stage.start();
+
+      // add click tag // 
+      addEvent( el , 'click' , function( e )
+      {
+        window.open( window.clickTag );
+        e.stopPropagation();
+      });
+    </script>
+  
+
+</body></html>

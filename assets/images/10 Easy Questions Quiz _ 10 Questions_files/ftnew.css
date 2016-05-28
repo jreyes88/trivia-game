@@ -1,0 +1,382 @@
+#wrapper {
+		width:95%;
+		margin:0px auto;
+		border:0px solid #bbb;
+		padding:0px;
+	}
+
+
+.maincont {
+        background-color:a6c8f6;
+        padding:2px;
+        width:95%;
+        margin:auto;
+//        height:auto;
+}
+
+.maintitle {
+background-image: url(/img/bluetwo.png);
+background-repeat: repeat-y;
+background-color: #8899dd;
+border:1px solid black;
+font-weight:bold;
+font-size:20pt;
+}
+
+.rounded {
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+}
+
+.offwhite {
+	background-color: #F0F7FF;
+	width:95%;
+	margin:auto;	
+}
+
+.bluegrade {
+	background-image: url(/img/home/bgh.gif);
+	background-repeat: repeat-x;
+	background-color: #f5f8fd;
+}
+
+
+.hometitle {
+font-size:18px;
+font-family:Verdana;
+font-weight:bold;
+color:000088;
+//text-shadow: 2px 2px 2px #fff;
+}
+
+
+.theheader {
+	border:1px solid black;
+	margin-bottom:3px;
+}
+
+.expheader {
+	margin:0px;
+	align:center;
+	margin:auto;
+	width:95%;
+	border : 2px solid #0066CC;
+	padding:0px;
+	border-spacing:0px;
+}
+
+.headimg a {
+	font-family:helvetica;
+	font-weight:bold;
+}
+
+.headimg img {
+	vertical-align:middle;
+}
+
+.lefttwo {
+border-left : 2px solid #0066CC;
+border-right : 2px solid #0066CC;  
+border-bottom : 2px solid #0066CC;   
+}
+
+.titl {
+border-top : 2px solid #0066CC;                                                                                                                                   
+border-left : 2px solid #0066CC;                                                                                                                              
+border-right : 2px solid #0066CC;                                                                                                                              
+background: #3355ff;
+font-weight:bold;
+color:white;
+}
+
+.titl3 {
+border:1px solid #6600cc;
+background: #ffffcc;
+font-weight:bold;
+color:red;
+}
+
+.titl2 {
+border:1px solid #6600cc;
+background: #6600cc;
+font-weight:bold;
+color:red;
+}
+
+.boxtop {
+background-image: url(/img/bluetwo.png);
+background-repeat: repeat-y;
+background-color: #8899dd;
+border:1px solid black;
+width:95%;
+margin:auto;
+margin-bottom:1px;
+padding: 10px;
+align:center;
+border-spacing:6px;
+}
+
+
+.searchbox {
+margin-bottom:5px;
+padding: 10px;
+border : 1px solid #0093DD;
+background: #ffffcc;
+font-family: Arial, Helvetica, Sans-serif;
+font-size: 10pt;
+}
+
+
+.boxhomeflat  {
+width:100%;
+margin:auto;
+padding-bottom:0;
+padding-right:0;
+background-color: #E6E6FA;
+border-radius:12px;
+-moz-border-radius:12px;
+margin-bottom:4px;
+border : 2px solid #0066CC;
+padding:6px;
+}
+
+.boxhomepage,.boxquizzes  {
+width:100%;
+margin:auto;
+padding-bottom:0;
+padding-right:0;
+//background-image: url(/img/bluegrade300.png);
+//background-repeat: repeat-x;
+//background-color: #ebf1ff;
+//background-color:FcFcFd;
+background-color: #F0F8FF;
+border-radius:12px;
+-moz-border-radius:12px;
+margin-bottom:4px;
+border : 2px solid #0066CC;
+padding:6px;
+}
+
+.boxquizzes {
+margin-bottom:0px;
+border-radius:0px;
+-moz-border-radius:0px;
+width:95%;
+}
+
+
+
+.boxwhite {
+margin-bottom:5px;
+padding: 10px;
+width:95%;
+background: white;
+margin:auto;
+border : 2px solid #0066CC;
+font-family: Arial, Helvetica, Sans-serif;
+font-size: 10pt;
+}
+
+
+.boxlightround {
+	margin-bottom:3px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+padding: 10px;
+background: #eeeeff;
+font-family: Arial, Helvetica, Sans-serif;
+font-size: 10pt;
+}
+
+.boxlight {
+margin-bottom:5px;
+padding: 10px;
+border : 1px solid black;
+background: #eeeeff;
+font-family: Arial, Helvetica, Sans-serif;
+font-size: 10pt;
+}
+
+.boxtab {
+background: #EEEEFF;
+color: #000000;
+border-left : 1px solid #330099;
+border-right : 1px solid #330099;
+border-bottom : 1px solid #330099;
+}
+
+.boxtab2 {
+background: #EEEEFF;
+color: #000000;
+border-left : 1px solid #0066CC;
+border-right : 1px solid #0066CC;
+border-bottom : 1px solid #0066CC;
+}
+
+.boxdark {
+margin-bottom:5px;
+padding: 10px;
+border : 1px solid #0093DD;
+background: #CCCCFF;
+font-family: Arial, Helvetica, Sans-serif;
+font-size: 10pt;
+}
+
+
+.boxyellow {
+margin-bottom:5px;
+padding: 10px;
+border : 1px solid #0093DD;
+background: #FFFFCC;
+font-family: Arial, Helvetica, Sans-serif;
+font-size: 10pt;
+}
+
+A:link, A:visited, A:active, A:hover { 
+  text-decoration: none;
+}
+A:link  { 
+  color: blue;
+}
+A:visited { 
+  color: #800080;
+}
+A:active {
+  color: red;
+}
+A:HOVER { 
+  color: white;
+  background-color: black;
+}
+.onbody{
+  background: #FFFFEE;
+}
+.onbody A:LINK {
+  color: blue;
+}
+.onbody A:VISITED {
+  color: #800080;
+}
+.onbody A:ACTIVE {
+  color: red;
+}
+
+BODY,P,TABLE,TD,TR {   
+  font-size:   11pt;
+  font-family: Arial,Helvetica;
+  color: #000000;
+}
+BODY {
+ background: #1d435a;
+// background: #0f1d4f;
+//  background: #276596 url(/img/ftb.gif) repeat-x;
+}
+
+h1 { font-size:16pt; }
+h2 { font-size:14pt; }
+h3 { font-size:12pt; }
+
+PRE {
+  font-size:   9pt;
+  font-family: courier;
+}
+FORM {
+  display: inline;
+}
+.dots {
+	background-image:  url(/img/i/dots.gif);
+	background-repeat: repeat-x;
+	background-position: left center;
+}
+.tablesurround {
+  background: #000099;
+}
+.tableborders {
+  background: #CCCCFF;
+}
+
+.logoheader {
+ width:95%;
+ background-image: url(/img/home/bgh.gif);
+ background-repeat: repeat-x;
+ background-color: #eeeeff;
+ margin-bottom:2px;
+ -moz-border-radius: 12px;
+ border : 2px solid #0066CC;
+ margin:auto;
+}
+
+.tdheader {
+  background: #CCCCFF;
+  font-size:   11pt;
+  font-weight: bold;
+  color:       #000000;
+  font-family: arial;
+}
+
+.darkesttable {
+  background: #CCCCFF;
+  color: #000000;
+}
+
+.categorytitle {
+  font-size:   16pt;
+  font-weight: bold;
+  color:       #000000;
+  background:  #CCCCFF;
+  font-family: arial;
+}
+.playedgame {
+  background:  #CCFFCC;
+#  font-size: 8pt;
+}
+
+.menubar{
+  background: #CCCCFF;
+  color: blue;
+}
+
+.threadtotal {
+  font-size: 8pt;
+  background: #EEEEFF;
+}
+.posttotal {
+  font-size: 8pt;
+  background: #DDDDFF;
+}
+.modcolumn {
+  font-size: 8pt;
+  background: #DDDDFF;
+}
+.small {
+  font-size:   8pt;
+  font-family: helvetica,arial;
+}
+.lighttable {
+  background: #EEEEFF;
+  color: #000000;
+}
+.qntext {
+  background: #EEEEFF;
+  font-size:   12pt; 
+}
+
+.darktable {
+  background: #DDDDFF;
+  color: #000000;
+}
+
+
+
+
+@media (max-width: 600px) {
+	.boxtop { width:100%;}
+	.expheader {width:100%;}
+	.offwhite,.maincont {width:100%;}
+	.boxwhite {width:100%;}
+	.hometitle {font-size:15px;}
+        .boxquizzes {width:100%;}
+	.logoheader {width:100%;}
+	h1 { font-size:18px;font-weight:bold;}
+}
+

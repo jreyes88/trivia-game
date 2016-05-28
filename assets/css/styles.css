@@ -1,15 +1,10 @@
-body {
-	background-image: url("../images/background.jpg");
-	background-size: 100%;
-	background-repeat: no-repeat;;
-}
-
 .startButton {
 	background-color: #000;
 	color: #fff;
 	width: 50px;
 	height: 60px;
 	text-align: center;
+	margin-left: 60px;
 }
 
 .nextButton {
@@ -18,12 +13,7 @@ body {
 	width: 90px;
 	height: 60px;
 	text-align: center;
-}
-
-.quizMessage {
-	width: 200px;
-	height: 100px;	
-	background-color: #e6e6e6;
+	margin-left: 60px
 }
 
 .doNotDisplay {
@@ -36,4 +26,19 @@ body {
 	width: 90px;
 	height: 60px;
 	text-align: center;
+	margin-left: 60px
+}
+h1 {
+	margin-left: 60px
+}
+
+.timer {
+	margin-left: 60px
+}
+.question {
+	margin-left: 60px
+}
+
+.result {
+	margin-left: 60px
 }
