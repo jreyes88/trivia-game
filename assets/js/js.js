@@ -29,13 +29,9 @@ var questions = [{
 // Empty gloval variables that the various functions need to manipulate to advance the game, determine the final score, and determine whether the game is over.
 var currentQuestion = 0;
 var correctAnswers = 0;
-var value;
 
 // All Game Functions
 $(document).ready(function () {
-
-    // Hides the quizMessage div
-    $(".quizMessage").hide();
 
     // Displays start button
     $(".startButton").html("Start!");
@@ -44,51 +40,9 @@ $(document).ready(function () {
     $(".startButton").on("click", function() {
         $(".startButton").addClass("nextButton").removeClass("startButton");
         $(".nextButton").html("Check Answer");
-        game();
+        displayCurrentQuestion();
     });
 });
-
-// This function contains all of the game logic
-function game() {
-    $(".choiceList").find("li").remove();
-    displayCurrentQuestion();
-    runTimer();
-
-    // runs game logic when you click on the "Check Answer" button
-    $(".nextButton").on("click", function () {
-        stopTimer();
-
-        $(document).find(".quizContainer > .quizMessage").hide();
-
-        value = $("input[type='radio']:checked").val(); // this shit ain't working
-
-        // if the "Check Answer" button is clicked but no radio button is selected, then the Quiz Message appears instructing the player to select an answer
-        if (value == undefined) {
-            $(document).find(".quizMessage").text("Please select an answer");
-            $(document).find(".quizMessage").show();
-            $(".choiceList").find("li").remove();
-            displayCurrentQuestion();
-
-        // the following sections cover what to do when a radio button IS selected and the "Check Answer" button is clicked
-        } else {
-
-            // this section covers the condition in which the correct radio button is clicked
-            if (value == questions[currentQuestion].correctAnswer) {
-                $(document).find(".quizMessage").hide();
-                $(".nextButton").addClass("doNotDisplay");
-                correctAnswers++;
-                stopTimer();
-                advanceQuestion();
-
-            } else if (value !== questions[currentQuestion].correctAnswer) {
-                $(document).find(".quizMessage").hide();
-                $(".nextButton").addClass("doNotDisplay");
-                stopTimer();
-                advanceQuestion();
-            };
-        };
-    });
-};
 
 // This function displays the current question and the choices
 function displayCurrentQuestion() {
@@ -104,67 +58,94 @@ function displayCurrentQuestion() {
     var choice;
 
     // for-loop that appends the various choices arrays in the question object into the variable named choice. each appendage is a list item with a radio button
-    for (i = 0; i < numChoices; i++) {
-        choice = questions[currentQuestion].choices[i];
-        $('<li><input type="radio" value=' + i + ' name="dynradio" />' + choice + '</li>').appendTo(choiceList);
+    for (j = 0; j < numChoices; j++) {
+        choice = questions[currentQuestion].choices[j];
+        $('<div><input type="radio" value=' + j + ' name="dynradio" />' + choice + '</div>').appendTo(choiceList);
     };
+    console.log(currentQuestion);
+    runTimer();
 };
 
-// Run this function if time runs out
-function timesUp() {
-	$(".question").text("Time is up! The correct answer is " + questions[currentQuestion].correctChoice);
-    $(".nextButton").addClass("doNotDisplay");
-	runHiddenTimer();
+$("body").on("click", ".nextButton", function () {
+
+    console.log("NextButton Clicked");
+
+    value = $("input[name=dynradio]:checked").val();
+
+    if (value == undefined ) {
+
+    } else {
+        if (value == questions[currentQuestion].correctAnswer) {
+            console.log("correct answer");
+            correctAnswers++;
+            console.log("Correct Answers: " + correctAnswers);
+            correctChoicePage();
+        } else if (value !== questions[currentQuestion].correctAnswer) {
+            console.log("incorrect answer");
+            incorrectChoicePage();
+        };
+    };
+    
+});
+
+function correctChoicePage() {
+    $(".question").text("Correct!");
+    $(".choiceList").find("div").remove();
+    number = 11;
     stopTimer();
-    number = 0;
+    runHiddenTimer();
+    $(".nextButton").addClass("doNotDisplay");
+    $(".timer").addClass("doNotDisplay");
 };
 
-// Moves onto the next question. Resets the timer to 11
+function incorrectChoicePage() {
+    $(".question").text("Incorrect! The correct answer is " + questions[currentQuestion].correctChoice);
+    $(".choiceList").find("div").remove();
+    number = 11;
+    stopTimer();
+    runHiddenTimer();
+    $(".nextButton").addClass("doNotDisplay");
+    $(".timer").addClass("doNotDisplay");
+};
+
+// // Moves onto the next question.
 function advanceQuestion() {
 	if (currentQuestion < questions.length - 1) {
-        $(document).find(".quizMessage").hide();
         currentQuestion++;
-        $(".choiceList").find("li").remove();
-        game();
+        displayCurrentQuestion();
         number = 11;
-        hiddenNumber = 5;
         stopTimer();
-        stopHiddenTimer();
-        $(".nextButton").addClass("doNotDisplay");
+        hiddenNumber = 5;
+        $(".nextButton").removeClass("doNotDisplay");
+        $(".timer").removeClass("doNotDisplay");
     } else {
-        $(document).find(".quizMessage").hide();
-        $(".choiceList").find("li").remove();
+        $(".choiceList").find("div").remove();
         $(".question").text("Game Over!");
-        $(".timer").addClass("doNotDisplay");
         displayScore();
-        number = 0;
-        hiddenNumber = 5;
+        number = 9000000;
         stopTimer();
-        stopHiddenTimer();
+        $(".resetButton").removeClass("doNotDisplay");
     };
 };
 
 function displayScore() {
     $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
     $(document).find(".quizContainer > .result").show();
+    $(".choiceList").find("div").remove();
     $(".nextButton").text("Try Again?").addClass("resetButton").removeClass("nextButton");
-    tryAgainReset();
-    stopTimer();
-    stopHiddenTimer();
 };
 
-function tryAgainReset() {
-    $(".resetButton").on("click", function() {
-        hideScore();
-        $(".choiceList").find("li").remove();
-        currentQuestion = 0;
-        correctAnswers = 0;
-        number = 11;
-        hiddenNumber = 5;
-        game();
-        console.log(currentQuestion);
-    });
-};
+$("body").on("click", ".resetButton", function () {
+    hideScore();
+    currentQuestion = 0;
+    correctAnswers = 0;
+    value = "";
+    number = 10
+    $(".choiceList").find("div").remove();
+    displayCurrentQuestion();
+    $(".resetButton").text("Check Answer").addClass("nextButton").removeClass("resetButton");
+    stopTimer()
+});
 
 function hideScore() {
     $(document).find(".result").hide();
@@ -172,6 +153,7 @@ function hideScore() {
 
 // game timer stuff
 
+var counter;
 var number = 11;
 
 function runTimer(){
@@ -183,8 +165,8 @@ function decrement(){
 	number --;
 	$(".timer").html('<h2>' + number + '</h2>');
 	if (number === 0){
-        timesUp();
-        $(".choiceList").find("li").remove();
+        incorrectChoicePage();
+        $(".choiceList").find("div").remove();
 	};
 };
 
@@ -203,9 +185,8 @@ function hiddenDecrement(){
 	hiddenNumber --;
 	$(".hiddenTimer").html('<h2>' + hiddenNumber + '</h2>');
 	if (hiddenNumber === 0){
-    stopHiddenTimer();
-    advanceQuestion();
-    game();
+        stopHiddenTimer();
+        advanceQuestion();
 	};
 };
 
